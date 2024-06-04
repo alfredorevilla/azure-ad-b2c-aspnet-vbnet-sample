@@ -1,5 +1,6 @@
 ﻿Imports System.Security.Claims
 Imports System.Threading.Tasks
+Imports Microsoft.IdentityModel.Logging
 Imports Microsoft.IdentityModel.Protocols.OpenIdConnect
 Imports Microsoft.IdentityModel.Tokens
 Imports Microsoft.Owin.Extensions
@@ -14,6 +15,9 @@ Partial Public Class Startup
     Public Shared metadataAddress As String = ConfigurationManager.AppSettings("ida:MetadataAddress")
 
     Public Sub ConfigureAuth(app As IAppBuilder)
+
+        IdentityModelEventSource.ShowPII = True
+
         app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType)
 
         app.UseCookieAuthentication(New CookieAuthenticationOptions())
